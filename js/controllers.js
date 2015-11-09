@@ -12,15 +12,16 @@ angular.module('SimpleRESTIonic.controllers', [])
                 })
         }
 
-        function anonymousLogin(){
+        function anonymousLogin() {
             LoginService.anonymousLogin();
             onLogin();
         }
 
-        function onLogin(){
+        function onLogin() {
             $rootScope.$broadcast('authorized');
             $state.go('tab.dashboard');
-        }
+            login.username = Backand.getUsername();
+    }
 
         function signout() {
             LoginService.signout()
@@ -32,9 +33,22 @@ angular.module('SimpleRESTIonic.controllers', [])
 
         }
 
+        function socialSignUp(provider) {
+            console.log(provider);
+            LoginService.socialSignIn(provider)
+                .then(function(response){
+                    onLogin();
+                    login.username = response.data;
+                });
+
+        }
+
+        login.username = '';
+        login.status = '';
         login.signin = signin;
         login.signout = signout;
         login.anonymousLogin = anonymousLogin;
+        login.socialSignUp = socialSignUp;
     })
 
     .controller('DashboardCtrl', function (ItemsModel, $rootScope) {
@@ -51,7 +65,7 @@ angular.module('SimpleRESTIonic.controllers', [])
                 });
         }
 
-        function clearData(){
+        function clearData() {
             vm.data = null;
         }
 
@@ -126,7 +140,7 @@ angular.module('SimpleRESTIonic.controllers', [])
             clearData();
         });
 
-        if(!vm.isAuthorized){
+        if (!vm.isAuthorized) {
             $rootScope.$broadcast('logout');
         }
 
