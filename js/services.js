@@ -59,36 +59,23 @@ angular.module('SimpleRESTIonic.services', [])
         }
 
         service.socialSignIn = function (provider) {
-            return Backand.socialSignIn(provider)
-                .then(function (response) {
-                //loadUserDetails();
-                    return response;
-                }, function(reason) {
-                    console.log(reason);
-                    return reason;
-                });
+            return Backand.socialSignIn(provider);
         };
 
         service.socialSignUp = function (provider) {
-            return Backand.socialSignUp(provider)
-            .then(function(greeting) {
+            return Backand.socialSignUp(provider);
 
-                    return greeting;
-                //alert('Success: ' + greeting);
-            }, function(reason) {
-                    return reason;
-                    console.log(reason);
-                //alert('Failed: ' + reason);
-            }, function(update) {
-
-                alert('Got notification: ' + update);
-            });
         };
 
         service.signout = function () {
             return Backand.signout();
         };
+
+        service.signup = function(firstName, lastName, email, password, confirmPassword){
+            return Backand.signup(firstName, lastName, email, password, confirmPassword);
+        }
     })
+
     .service('AuthService', function($http, Backand){
 
     var self = this;

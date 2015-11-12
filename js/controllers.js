@@ -33,22 +33,75 @@ angular.module('SimpleRESTIonic.controllers', [])
 
         }
 
-        function socialSignUp(provider) {
-            console.log(provider);
+        function socialSignIn(provider) {
             LoginService.socialSignIn(provider)
-                .then(function(response){
-                    onLogin();
-                    login.username = response.data;
-                });
+                .then(onValidLogin, onErrorInLogin);
 
         }
 
+        function socialSignUp(provider) {
+            LoginService.socialSignUp(provider)
+                .then(onValidLogin, onErrorInLogin);
+
+        }
+
+        onValidLogin = function(response){
+            onLogin();
+            login.username = response.data;
+        }
+
+        onErrorInLogin = function(rejection){
+            login.error = rejection.data;
+            $rootScope.$broadcast('logout');
+
+        }
+
+
         login.username = '';
-        login.status = '';
+        login.error = '';
         login.signin = signin;
         login.signout = signout;
         login.anonymousLogin = anonymousLogin;
-        login.socialSignUp = socialSignUp;
+        login.socialSignup = socialSignUp;
+        login.socialSignin = socialSignIn;
+
+    })
+
+    .controller('SignUpCtrl', function (Backand, $state, $rootScope, LoginService) {
+        var vm = this;
+
+        vm.signup = signUp;
+
+        function signUp(){
+            vm.errorMessage = '';
+
+            LoginService.signup(vm.firstName, vm.lastName, vm.email, vm.password, vm.again)
+                .then(function (response) {
+                    // success
+                    onLogin();
+                }, function (reason) {
+                    if(reason.data.error_description !== undefined){
+                        vm.errorMessage = reason.data.error_description;
+                    }
+                    else{
+                        vm.errorMessage = reason.data;
+                    }
+                });
+        }
+
+
+        function onLogin() {
+            $rootScope.$broadcast('authorized');
+            $state.go('tab.dashboard');
+        }
+
+
+        vm.email = '';
+        vm.password ='';
+        vm.again = '';
+        vm.firstName = '';
+        vm.lastName = '';
+        vm.errorMessage = '';
     })
 
     .controller('DashboardCtrl', function (ItemsModel, $rootScope) {

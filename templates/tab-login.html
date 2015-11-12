@@ -22,18 +22,18 @@
                     </button>
                 </div>
                 <div class="button-bar">
-                    <button class="button button-positive icon-left ion-social-facebook" ng-click="login.socialSignUp('facebook')" type="button">
+                    <button class="button button-positive icon-left ion-social-facebook" ng-click="login.socialSignin('facebook')" type="button">
                         Facebook
                     </button>
-                    <button class="button button-dark icon-left ion-social-facebook ion-social-github" ng-click="login.socialSignUp('github')" type="button">
+                    <button class="button button-dark icon-left ion-social-facebook ion-social-github" ng-click="login.socialSignin('github')" type="button">
                         Github
                     </button>
-                    <button class="button button-assertive icon-left ion-social-googleplus" ng-click="login.socialSignUp('google')" type="button">
+                    <button class="button button-assertive icon-left ion-social-googleplus" ng-click="login.socialSignin('google')" type="button">
                         Google+
                     </button>
                 </div>
             </form>
+                <h4 style="color:red;" ng-bind="login.error"></h4>
         </div>
-        <div ng-model="login.status">{{login.status}}</div>
     </ion-content>
 </ion-view>

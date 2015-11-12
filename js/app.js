@@ -5,31 +5,18 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controllers', 'SimpleRESTIonic.services'])
 
-    .run(function ($ionicPlatform) {
-        $ionicPlatform.ready(function () {
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
-            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                cordova.plugins.Keyboard.disableScroll(true);
+    /*   .run(function (, Backand) {
 
-            }
-            if (window.StatusBar) {
-                // org.apache.cordova.statusbar required
-                StatusBar.styleLightContent();
-            }
-        });
-    })
+     })
+     */
     .config(function (BackandProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
-
         // change here to your appName
-        var appName = 'ionicstarter';
+        BackandProvider.setAppName('ionicstarter');
+
+        BackandProvider.setSignUpToken('eeeac4e6-b7bc-4552-88ff-a424c50ead61');
 
         // token is for anonymous login. see http://docs.backand.com/en/latest/apidocs/security/index.html#anonymous-access
-        var token = '86d665e8-bb1c-4290-a124-2a80baac405d';
-
-        BackandProvider.setAppName(appName);
-        BackandProvider.setAnonymousToken(token);
+        BackandProvider.setAnonymousToken('86d665e8-bb1c-4290-a124-2a80baac405d');
 
         $stateProvider
             // setup an abstract state for the tabs directive
@@ -55,14 +42,43 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
                         controller: 'LoginCtrl as login'
                     }
                 }
-            });
+            })
+            .state('tab.signup', {
+                url: '/signup',
+                views: {
+                    'tab-signup': {
+                        templateUrl: 'templates/tab-signup.html',
+                        controller: 'SignUpCtrl as vm'
+                    }
+                }
+            }
+        );
 
         $urlRouterProvider.otherwise('/tabs/dashboard');
-
         $httpProvider.interceptors.push('APIInterceptor');
     })
 
-    .run(function ($rootScope, $state, LoginService, Backand) {
+    .run(function ($ionicPlatform, $rootScope, $state, LoginService, Backand) {
+
+        $ionicPlatform.ready(function () {
+
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
+
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleLightContent();
+            }
+
+
+            var isMobile = !(ionic.Platform.platforms[0] == "browser");
+            Backand.setIsMobile(isMobile);
+            Backand.setRunSignupAfterErrorInSigninSocial(true);
+        });
 
         function unauthorized() {
             console.log("user is unauthorized, sending to login");
@@ -87,4 +103,3 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
         });
 
     })
-
