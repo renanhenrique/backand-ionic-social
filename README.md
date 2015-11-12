@@ -55,7 +55,10 @@ create a free personal application at [backand.com](https://www.backand.com/apps
         }
       }
     ]
-8 - Change the app's parameters (/js/app.js file at line 14) in the Config section with your new app parameters.
+8 - Change the app's parameters (/js/app.js file at line 14) in the Config section with your new app parameters:
+
       BackandProvider.setAppName('Your-App-Name');
+      
       BackandProvider.setSignUpToken('Your-SignUp-Token');
+      
       BackandProvider.setAnonymousToken('Your-Anonymous-Token');
