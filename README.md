@@ -1,9 +1,9 @@
-# backand-ionic-starter
+# backand-ionic-social
 Create mobile application with [ionic](http://www.ionicframework.com) and [backand](http://www.backand.com).
 
 1- To run starter, download zip and run ionic start:
 
-    ionic start myApp https://github.com/backand/backand-ionic-starter
+    ionic start myApp https://github.com/backand/backand-ionic-social
     cd myApp
 
 2 - Run with ionic serve function
