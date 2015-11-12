@@ -10,18 +10,16 @@ Create mobile application with [ionic](http://www.ionicframework.com) and [backa
 
     ionic serve
 
-3 - Login as guest or with  user and password:
+3 - Sign up to application and add new users with Signup tab.
 
-  <b>user</b>: ionic@backand.com
+4 - Sign up with all leads social app, Facebook, Google+ and Gitub.
 
-  <b>pwd</b>: backand
+5 - Enjoy your mobile application, with backand at server side and full CRUD commands to server.
 
-4 - Enjoy your mobile application, with backand at server side and full CRUD commands to server.
-
-5 - Want to customize data model or change authorization?
+6 - Want to customize data model or change authorization?
 create a free personal application at [backand.com](https://www.backand.com/apps/#/sign_up)
 
-6 - Use following model (or just keep the default Model):
+7 - Use following model (or just keep the default Model):
 
     [
       {
@@ -57,5 +55,5 @@ create a free personal application at [backand.com](https://www.backand.com/apps
         }
       }
     ]
-7 - change application name in  /js/app.js file at line 26
+8 - change application name in  /js/app.js file at line 14
 to your new application name.
